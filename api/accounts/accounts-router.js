@@ -1,44 +1,59 @@
 const router = require('express').Router()
+const md = require('./accounts-middleware.js')
 
 router.get('/', (req, res, next) => {
   // DO YOUR MAGIC
   try {
+    res.json('')
    res.json([{},{}])
   } catch (err) {
     next({ status: 422, message: 'this is awful' })
   }
 })
 
-router.get('/:id', (req, res, next) => {
+router.get('/:id', md.checkAccountId, (req, res, next) => {
   // DO YOUR MAGIC
   try {
+    res.json('get account by id')
 
   } catch (err) {
     next(err)
   }
 })
 
-router.post('/', (req, res, next) => {
+router.post(
+  '/', 
+  md.checkAccountPayload, 
+  md.checkAccountNameUnique, 
+  (req, res, next) => {
   // DO YOUR MAGIC
   try {
+    res.json('post account')
 
   } catch (err) {
     next(err)
   }
 })
 
-router.put('/:id', (req, res, next) => {
+router.put(
+  '/:id', 
+  md.checkAccountId, 
+  md.checkAccountPayload, 
+  md.checkAccountNameUnique, 
+  (req, res, next) => {
   // DO YOUR MAGIC
   try {
+    res.json('')
 
   } catch (err) {
     next(err)
   }
 });
 
-router.delete('/:id', (req, res, next) => {
+router.delete('/:id', md.checkAccountId, (req, res, next) => {
   // DO YOUR MAGIC
   try {
+    res.json('')
 
   } catch (err) {
     next(err)
